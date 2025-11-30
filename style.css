@@ -17,7 +17,7 @@ html {
     overflow-y: scroll;
     overflow-x: hidden; 
     
-    /* MOUSE FIX: Restore system cursor so buttons work if custom cursor fails */
+    /* FIX: Restores the system mouse on Safari so buttons work */
     cursor: auto; 
 }
 
@@ -28,42 +28,37 @@ body {
     padding-bottom: 50px;
 }
 
-/* --- HERO IMAGE FIX FOR SAFARI & CHROME --- */
+/* --- HERO IMAGE & SECTION FIXES --- */
 .image-target { 
     background-color: #0a0a0a; 
     
-    /* Force image to cover */
+    /* Ensure image always fills the space */
     background-size: cover !important; 
     background-position: center center !important; 
     background-repeat: no-repeat !important; 
     
-    /* DESKTOP DEFAULT: Fixed creates the cool parallax effect */
+    /* PARALLAX EFFECT */
     background-attachment: fixed;
 
-    /* SAFARI HEIGHT FIX: 
-       1. 100vh is the fallback for old browsers.
-       2. 100dvh (Dynamic VH) instantly adapts when Safari address bar shrinks/grows.
-    */
+    /* HEIGHT FIX: 100dvh handles the resizing address bars perfectly */
     width: 100%;
-    height: 100vh; 
-    height: 100dvh; 
+    min-height: 100vh; 
+    min-height: 100dvh; 
     
     transition: background-image 0.5s ease; 
     position: relative; 
-    will-change: transform; 
-    transform: translateZ(0); 
+    
+    /* CRITICAL MAC OS FIX:
+       I have REMOVED 'transform: translateZ(0)' and 'will-change: transform'.
+       These properties create a new coordinate system in Safari that breaks
+       'background-attachment: fixed', causing the image to look cut off.
+    */
 } 
 
-/* --- MOBILE SPECIFIC FIX FOR BACKGROUNDS --- */
-/* This detects touch devices (phones/tablets) */
+/* Mobile Fallback: Switches to scroll on phones to prevent zoom/cutoff bugs */
 @media (hover: none) and (pointer: coarse) {
     .image-target {
-        /* CRITICAL SAFARI FIX: 
-           'Fixed' backgrounds often break on mobile Safari (zoom in or cut off).
-           Switching to 'scroll' fixes the "half page" image issue. 
-        */
         background-attachment: scroll !important;
-        height: 100dvh !important;
     }
 }
 
@@ -78,9 +73,7 @@ body {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
     display: flex; align-items: center; justify-content: center; 
     transition: transform 0.1s linear; 
-    
-    /* CRITICAL FIX: Allows clicks to pass through this layer */
-    pointer-events: none !important; 
+    pointer-events: none !important; /* Clicks pass through */
 } 
 
 /* --- CURSOR FIXES --- */
@@ -88,9 +81,7 @@ body {
     position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: white; 
     border-radius: 50%; z-index: 10000; 
     mix-blend-mode: difference; 
-    
-    /* CRITICAL FIX: Ensures cursor never blocks buttons */
-    pointer-events: none !important; 
+    pointer-events: none !important; /* Clicks pass through */
 }
 
 .cursor-follower { 
@@ -99,12 +90,10 @@ body {
     mix-blend-mode: difference; 
     transition: width 0.4s, height 0.4s, background-color 0.3s, border-radius 0.3s; 
     display: flex; align-items: center; justify-content: center; 
-    
-    /* CRITICAL FIX: Ensures follower never blocks buttons */
-    pointer-events: none !important; 
+    pointer-events: none !important; /* Clicks pass through */
 }
 
-/* Rest of Cursor Styles */
+/* Cursor States */
 .cursor-follower::before { display: none; }
 .cursor-follower.active { width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-color: white; border-radius: 50%; }
 .cursor-follower.spot-check-active { width: 150px; height: 35px; border-radius: 4px; border: 2px solid var(--accent-color); background: #0a0a0a; box-shadow: 0 0 10px rgba(255, 62, 62, 0.5); mix-blend-mode: normal; transition: width 0.3s, height 0.3s, border-radius 0.3s, background 0.3s; }
@@ -112,7 +101,7 @@ body {
 .cursor-follower.cycle-active { width: 90px; height: 90px; background: #ffffff; border: none; mix-blend-mode: normal; box-shadow: 0 10px 20px rgba(0,0,0,0.3); animation: none; }
 .cursor-follower.cycle-active::after { content: 'NEXT IMG'; font-family: var(--font-mono); font-size: 10px; font-weight: 900; color: #000000; letter-spacing: 1px; }
 
-/* --- REMAINING CSS (Standard) --- */
+/* --- REMAINING CSS --- */
 .hero-content { z-index: 2; position: absolute; bottom: var(--padding); left: var(--padding); width: calc(100% - 2 * var(--padding)); pointer-events: none; } 
 .hero-intro { display: flex; justify-content: space-between; align-items: flex-end; font-size: 1.1rem; text-transform: uppercase; font-weight: 600; }
 
@@ -151,7 +140,7 @@ body {
 .close-menu { position: absolute; top: 40px; right: var(--padding); background: none; border: 1px solid white; color: white; padding: 10px 20px; font-weight: 700; cursor: pointer; transition: 0.3s; }
 .close-menu:hover { background: white; color: black; }
 
-/* Snap Section Basic */
+/* Snap Section */
 .snap-section { 
     scroll-snap-align: start; scroll-snap-stop: always; 
     min-height: 100vh; display: flex; flex-direction: column; 
