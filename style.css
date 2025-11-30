@@ -17,7 +17,7 @@ html {
     overflow-y: scroll;
     overflow-x: hidden; 
     
-    /* MOUSE FIX: Set to auto so the system mouse works if custom fails */
+    /* MOUSE FIX: Restore system cursor so buttons work if custom cursor fails */
     cursor: auto; 
 }
 
@@ -28,24 +28,44 @@ body {
     padding-bottom: 50px;
 }
 
-/* --- HERO IMAGE FIX FOR CHROME --- */
+/* --- HERO IMAGE FIX FOR SAFARI & CHROME --- */
 .image-target { 
     background-color: #0a0a0a; 
     
-    /* CHROME FIX: Force image to cover entire area */
+    /* Force image to cover */
     background-size: cover !important; 
     background-position: center center !important; 
     background-repeat: no-repeat !important; 
     
-    /* Ensure it takes full height */
+    /* DESKTOP DEFAULT: Fixed creates the cool parallax effect */
+    background-attachment: fixed;
+
+    /* SAFARI HEIGHT FIX: 
+       1. 100vh is the fallback for old browsers.
+       2. 100dvh (Dynamic VH) instantly adapts when Safari address bar shrinks/grows.
+    */
     width: 100%;
     height: 100vh; 
+    height: 100dvh; 
     
     transition: background-image 0.5s ease; 
     position: relative; 
     will-change: transform; 
     transform: translateZ(0); 
 } 
+
+/* --- MOBILE SPECIFIC FIX FOR BACKGROUNDS --- */
+/* This detects touch devices (phones/tablets) */
+@media (hover: none) and (pointer: coarse) {
+    .image-target {
+        /* CRITICAL SAFARI FIX: 
+           'Fixed' backgrounds often break on mobile Safari (zoom in or cut off).
+           Switching to 'scroll' fixes the "half page" image issue. 
+        */
+        background-attachment: scroll !important;
+        height: 100dvh !important;
+    }
+}
 
 .huge-bg-text { 
     font-size: 14vw; font-weight: 900; line-height: 0.9; text-align: center; color: var(--text-color); 

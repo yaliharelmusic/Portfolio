@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'MainPhotos/02.jpeg', 
         'MainPhotos/03.jpeg', 
         'MainPhotos/04.jpeg',
+        'MainPhotos/05.jpeg',
     ];
 
     const defaultImage = 'https://images.unsplash.com/photo-1549491689-18ae42571764?q=80&w=1000&auto=format&fit=crop'; 
