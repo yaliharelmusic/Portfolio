@@ -19,84 +19,54 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', toggleMenu);
     });
 
-    // --- 2. SECTION TRACKER LOGIC (FIXED) ---
+    // --- 2. SECTION TRACKER LOGIC ---
     const trackerItems = document.querySelectorAll('.tracker-item');
     const sections = document.querySelectorAll('.snap-section');
     const sectionNameDisplay = document.getElementById('current-section-name');
 
-    // Handle Click Navigation
     trackerItems.forEach(item => {
         item.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent default anchor behavior
+            e.preventDefault(); 
             const targetId = item.getAttribute('data-target');
             const targetSection = document.getElementById(targetId);
-            
             if (targetSection) {
-                // Use scrollTo for more control over snap behavior
                 const yOffset = targetSection.offsetTop;
                 window.scrollTo({ top: yOffset, behavior: 'smooth' });
             }
         });
     });
 
-    // Handle Scroll Highlighting (Observer)
-    const observerOptions = {
-        root: null,
-        rootMargin: "-50% 0px -50% 0px", 
-        threshold: 0
-    };
-
+    const observerOptions = { root: null, rootMargin: "-50% 0px -50% 0px", threshold: 0 };
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 trackerItems.forEach(item => item.classList.remove('active'));
                 const id = entry.target.getAttribute('id');
                 const activeItem = document.querySelector(`.tracker-item[data-target="${id}"]`);
-                if (activeItem) {
-                    activeItem.classList.add('active');
-                }
-                if(sectionNameDisplay && id) {
-                    sectionNameDisplay.innerText = id.toUpperCase();
-                }
+                if (activeItem) activeItem.classList.add('active');
+                if(sectionNameDisplay && id) sectionNameDisplay.innerText = id.toUpperCase();
             }
         });
     }, observerOptions);
 
-    sections.forEach(section => {
-        if(section.id) sectionObserver.observe(section);
-    });
+    sections.forEach(section => { if(section.id) sectionObserver.observe(section); });
 
     // --- 3. TECHNICAL STATUS MAP ---
     const statusMap = {
-        'project management': 'TIMELINE',
-        'festival operation': 'OPS TEAM DEPLOYED',
-        'music industry': 'A&R CONFIRMED',
-        'stakeholders': 'COMMUNICATION ONLINE',
-        'budgeting': 'PLANNING PHASE',
-        'event planning': 'PLANNING PHASE',
-        'artist coord': 'PLANNING PHASE',
-        'operations': 'EVENT PHASE',
-        'ticketing': 'EVENT PHASE',
-        'vendors': 'EVENT PHASE',
-        'crew & staff': 'PRE-EVENT PHASE',
-        'risk & safety': 'PRE-EVENT PHASE',
-        'leadership': 'PRE-EVENT PHASE'
+        'project management': 'TIMELINE', 'festival operation': 'OPS TEAM DEPLOYED', 'music industry': 'A&R CONFIRMED',
+        'stakeholders': 'COMMUNICATION ONLINE', 'budgeting': 'PLANNING PHASE', 'event planning': 'PLANNING PHASE',
+        'artist coord': 'PLANNING PHASE', 'operations': 'EVENT PHASE', 'ticketing': 'EVENT PHASE', 'vendors': 'EVENT PHASE',
+        'crew & staff': 'PRE-EVENT PHASE', 'risk & safety': 'PRE-EVENT PHASE', 'leadership': 'PRE-EVENT PHASE'
     };
     
-    // --- MAIN PHOTOS GALLERY (FIXED PATHS) ---
-    // Ensure your folder on computer/github is named "images" (lowercase, no spaces)
+    // --- MAIN PHOTOS GALLERY ---
+    // Ensure folder is 'MainPhotos' (Capital M, Capital P)
     const defaultBgImages = [
-<<<<<<< HEAD
-        'images/01.jpeg', 
-        'images/02.jpeg', 
-        'images/03.jpeg', 
-        'images/04.jpeg'
-=======
         'MainPhotos/01.jpeg', 
         'MainPhotos/02.jpeg', 
         'MainPhotos/03.jpeg', 
-        'MainPhotos/04.jpeg'
->>>>>>> c1d9209ee1b3862f5f4c7a2a87c2a610d710a4db
+        'MainPhotos/04.jpeg',
+        'MainPhotos/05.jpeg'
     ];
 
     const defaultImage = 'https://images.unsplash.com/photo-1549491689-18ae42571764?q=80&w=1000&auto=format&fit=crop'; 
@@ -250,7 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
     };
 
-    // --- 4. SETUP WORK ACCORDION (WITH AUTO-CENTER SCROLL) ---
     function setupWorkAccordion() {
         const projectItems = document.querySelectorAll('.project-item');
         projectItems.forEach(item => {
@@ -264,63 +233,42 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = item.parentElement;
         const details = container.querySelector('.project-details');
         const strobe = container.querySelector('.strobe-layer');
-
         strobe.classList.add('flash-active');
         setTimeout(() => strobe.classList.remove('flash-active'), 300);
-
         document.querySelectorAll('.project-container').forEach(other => {
             if(other !== container) {
                 other.classList.remove('active');
                 other.querySelector('.project-details').style.maxHeight = null;
             }
         });
-
         container.classList.toggle('active');
-        
         if (container.classList.contains('active')) {
             details.style.maxHeight = details.scrollHeight + 100 + "px";
-            
-            // RE-ADDED: Scroll to center the active project (Smoothly) after expansion delay
-            setTimeout(() => {
-                container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 350);
-            
+            setTimeout(() => { container.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 350);
         } else {
             details.style.maxHeight = null;
         }
     }
 
-    // --- 5. RENDER PROJECTS (UPDATED WITH GALLERY) ---
     const projectListContainer = document.querySelector('.project-list');
-    
     function renderProjects(category, showAll = false) {
         const projects = projectData[category] || projectData['work'];
         const limit = showAll ? projects.length : 5; 
         const visibleProjects = projects.slice(0, limit);
-
         let htmlContent = visibleProjects.map((p, index) => {
-            // 1. GENERATE IMAGE ARRAY
             let imageList = [];
-            
             if (p.folder && p.count) {
-                // If folder/count is provided, generate 01.jpg to count.jpg
                 for (let i = 1; i <= p.count; i++) {
-                    // padStart(2, '0') ensures "1" becomes "01"
                     const fileName = String(i).padStart(2, '0') + ".jpg";
                     imageList.push(`${p.folder}${fileName}`);
                 }
             } else if (p.img) {
-                // Fallback to the single image
                 imageList.push(p.img);
             } else {
-                // Fallback if nothing exists
                 imageList.push(defaultImage);
             }
-
-            // Convert array to string for data attribute
             const galleryData = JSON.stringify(imageList).replace(/"/g, '"');
             const uniqueId = `proj-${index}`;
-
             return `
             <div class="project-container">
                 <div class="project-item hover-trigger">
@@ -333,19 +281,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="strobe-layer"></div>
                 <div class="project-details">
                     <div class="detail-content">
-                        
                         <div class="img-wrapper" id="${uniqueId}">
                             ${imageList.length > 1 ? `<div class="image-counter">01 / ${String(imageList.length).padStart(2,'0')}</div>` : ''}
-                            
                             <img src="${imageList[0]}" alt="${p.name}" class="detail-img" data-gallery="${galleryData}" data-current="0">
-                            
                             ${imageList.length > 1 ? `
                                 <div class="gallery-btn-container">
                                     <button class="next-img-btn hover-trigger">NEXT IMG →</button>
                                 </div>
                             ` : ''}
                         </div>
-
                         <h4 class="p-summary">${p.summary}</h4>
                         <p class="detail-text">${p.details}</p>
                         <div class="detail-links">
@@ -356,7 +300,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `}).join('');
-
         if (!showAll && projects.length > limit) {
             htmlContent += `
                 <div class="load-more-container">
@@ -364,56 +307,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
         }
-
         projectListContainer.innerHTML = htmlContent;
-        
         setupWorkAccordion(); 
-        setupGalleryListeners(); // NEW FUNCTION CALL
-
+        setupGalleryListeners(); 
         const loadMoreBtn = document.getElementById('load-more-btn');
         if (loadMoreBtn) {
-            loadMoreBtn.addEventListener('click', () => {
-                renderProjects(category, true); 
-            });
+            loadMoreBtn.addEventListener('click', () => { renderProjects(category, true); });
         }
     }
 
-    // --- NEW: GALLERY LOGIC HANDLER ---
     function setupGalleryListeners() {
         const galleryButtons = document.querySelectorAll('.next-img-btn');
-        
         galleryButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent closing the accordion
-                
-                // Find parent wrapper and image
+                e.stopPropagation(); 
                 const wrapper = btn.closest('.img-wrapper');
                 const imgTag = wrapper.querySelector('.detail-img');
                 const counter = wrapper.querySelector('.image-counter');
-                
-                // Get Data
                 const images = JSON.parse(imgTag.getAttribute('data-gallery'));
                 let currentIdx = parseInt(imgTag.getAttribute('data-current'));
-                
-                // Increment logic
                 currentIdx++;
-                if (currentIdx >= images.length) {
-                    currentIdx = 0; // Loop back to start
-                }
-                
-                // Update DOM
+                if (currentIdx >= images.length) currentIdx = 0; 
                 imgTag.src = images[currentIdx];
                 imgTag.setAttribute('data-current', currentIdx);
-                
-                // Update Counter Text
-                if(counter) {
-                    counter.innerText = `${String(currentIdx + 1).padStart(2,'0')} / ${String(images.length).padStart(2,'0')}`;
-                }
+                if(counter) counter.innerText = `${String(currentIdx + 1).padStart(2,'0')} / ${String(images.length).padStart(2,'0')}`;
             });
         });
     }
 
-    // --- 6. FILTER MENU LOGIC ---
     const filterButtons = document.querySelectorAll('.filter-btn');
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -425,8 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     renderProjects('work'); 
 
-
-    // --- 7. BACKGROUND IMAGE CYCLING ---
+    // --- BACKGROUND IMAGE CYCLING ---
     const imageSections = document.querySelectorAll('.image-target');
     function setRandomImage() {
         if (defaultBgImages.length === 0) return;
@@ -446,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 8. CURSOR LOGIC ---
+    // --- CURSOR LOGIC ---
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
     const baseTriggers = document.querySelectorAll('.hover-trigger');
@@ -462,32 +382,24 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
-        if (cursor) {
-             cursor.style.transform = `translate3d(${mouseX - 4}px, ${mouseY - 4}px, 0)`;
-        }
+        if (cursor) cursor.style.transform = `translate3d(${mouseX - 4}px, ${mouseY - 4}px, 0)`;
     });
 
     function animateCursor() {
         followerX += (mouseX - followerX) * moveSpeed;
         followerY += (mouseY - followerY) * moveSpeed;
         currentOffset += (targetOffset - currentOffset) * offsetSpeed;
-        if (follower) {
-            follower.style.transform = `translate3d(${followerX + currentOffset}px, ${followerY + currentOffset}px, 0) translate(-50%, -50%)`;
-        }
+        if (follower) follower.style.transform = `translate3d(${followerX + currentOffset}px, ${followerY + currentOffset}px, 0) translate(-50%, -50%)`;
         requestAnimationFrame(animateCursor);
     }
     animateCursor();
 
     baseTriggers.forEach(trigger => {
         trigger.addEventListener('mouseenter', () => {
-             if (!trigger.classList.contains('spot-check-trigger')) {
-                follower.classList.add('active');
-            }
+             if (!trigger.classList.contains('spot-check-trigger')) follower.classList.add('active');
         });
         trigger.addEventListener('mouseleave', () => {
-             if (!trigger.classList.contains('spot-check-trigger')) {
-                follower.classList.remove('active');
-            }
+             if (!trigger.classList.contains('spot-check-trigger')) follower.classList.remove('active');
         });
     });
 
@@ -517,7 +429,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 9. LINEUP & SCROLL ---
     const lineupRows = document.querySelectorAll('.lineup-row');
     lineupRows.forEach(row => {
         const header = row.querySelector('.lineup-header');
