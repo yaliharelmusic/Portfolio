@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'MainPhotos/05.jpeg'
     ];
 
-    const defaultImage = 'MainPhotos/01.jpeg'; 
+    const defaultImage = 'https://images.unsplash.com/photo-1549491689-18ae42571764?q=80&w=1000&auto=format&fit=crop'; 
     
     // --- UPDATED PROJECT DATA STRUCTURE ---
     // Use 'folder' and 'count' for galleries.
