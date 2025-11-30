@@ -10,14 +10,16 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* --- SCROLL SNAP (AUTO SCROLL) SETTINGS --- */
+/* --- SCROLL SNAP SETTINGS --- */
 html {
     scroll-snap-type: y mandatory; 
     scroll-behavior: smooth;
     height: 100vh;
     overflow-y: scroll;
     overflow-x: hidden; 
-    cursor: none; 
+    
+    /* --- FIX 1: RESTORE SYSTEM MOUSE FOR SAFARI --- */
+    cursor: auto; 
 }
 
 body {
@@ -150,8 +152,19 @@ body {
 .load-more-btn:hover { border-color: white; color: white; }
 
 /* --- CURSOR --- */
-.cursor { position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: white; border-radius: 50%; z-index: 10000; pointer-events: none; mix-blend-mode: difference; }
-.cursor-follower { position: fixed; top: 0; left: 0; width: 50px; height: 50px; background: transparent; border: 1px solid rgba(255,255,255, 0.5); border-radius: 50%; z-index: 9999; pointer-events: none; mix-blend-mode: difference; transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), height 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, border-radius 0.3s; display: flex; align-items: center; justify-content: center; }
+/* FIX 2: Added !important to pointer-events to ensure clicks pass through */
+.cursor { 
+    position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: white; 
+    border-radius: 50%; z-index: 10000; 
+    pointer-events: none !important; 
+    mix-blend-mode: difference; 
+}
+.cursor-follower { 
+    position: fixed; top: 0; left: 0; width: 50px; height: 50px; background: transparent; 
+    border: 1px solid rgba(255,255,255, 0.5); border-radius: 50%; z-index: 9999; 
+    pointer-events: none !important; 
+    mix-blend-mode: difference; transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), height 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, border-radius 0.3s; display: flex; align-items: center; justify-content: center; 
+}
 .cursor-follower::before { display: none; }
 .cursor-follower.active { width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-color: white; border-radius: 50%; }
 .cursor-follower.spot-check-active { width: 150px; height: 35px; border-radius: 4px; border: 2px solid var(--accent-color); background: #0a0a0a; box-shadow: 0 0 10px rgba(255, 62, 62, 0.5); mix-blend-mode: normal; transition: width 0.3s, height 0.3s, border-radius 0.3s, background 0.3s; }
@@ -266,7 +279,7 @@ body {
     .mission-title { font-size: 2.5rem; }
 }
 
-/* --- NEW GALLERY STYLES --- */
+/* --- GALLERY STYLES --- */
 .img-wrapper {
     position: relative;
 }

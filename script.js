@@ -83,19 +83,25 @@ document.addEventListener('DOMContentLoaded', () => {
         'leadership': 'PRE-EVENT PHASE'
     };
     
-    // --- MAIN PHOTOS GALLERY ---
+    // --- MAIN PHOTOS GALLERY (FIXED PATHS) ---
+    // Ensure your folder on computer/github is named "images" (lowercase, no spaces)
     const defaultBgImages = [
+<<<<<<< HEAD
+        'images/01.jpeg', 
+        'images/02.jpeg', 
+        'images/03.jpeg', 
+        'images/04.jpeg'
+=======
         'MainPhotos/01.jpeg', 
         'MainPhotos/02.jpeg', 
         'MainPhotos/03.jpeg', 
         'MainPhotos/04.jpeg'
+>>>>>>> c1d9209ee1b3862f5f4c7a2a87c2a610d710a4db
     ];
 
     const defaultImage = 'https://images.unsplash.com/photo-1549491689-18ae42571764?q=80&w=1000&auto=format&fit=crop'; 
     
-    // --- UPDATED PROJECT DATA STRUCTURE ---
-    // Use 'folder' and 'count' for galleries.
-    // Example: folder: "images/laneway/", count: 5 (Will look for 01.jpg...05.jpg)
+    // --- PROJECT DATA ---
     const projectData = {
         'work': [
             { 
@@ -312,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Convert array to string for data attribute
-            const galleryData = JSON.stringify(imageList).replace(/"/g, '&quot;');
+            const galleryData = JSON.stringify(imageList).replace(/"/g, '"');
             const uniqueId = `proj-${index}`;
 
             return `
@@ -328,7 +334,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="project-details">
                     <div class="detail-content">
                         
-                        <!-- UPDATED IMAGE WRAPPER -->
                         <div class="img-wrapper" id="${uniqueId}">
                             ${imageList.length > 1 ? `<div class="image-counter">01 / ${String(imageList.length).padStart(2,'0')}</div>` : ''}
                             
