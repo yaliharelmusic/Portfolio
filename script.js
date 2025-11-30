@@ -85,11 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- MAIN PHOTOS GALLERY ---
     const defaultBgImages = [
-        'MainPhotos/01.jpeg', 
-        'MainPhotos/02.jpeg', 
-        'MainPhotos/03.jpeg', 
-        'MainPhotos/04.jpeg'
-        'MainPhotos/05.jpeg'
+        'https://images.unsplash.com/photo-1543886568-193427383a45?q=80&w=2000&auto=format&fit=crop', 
+        'https://images.unsplash.com/photo-1588667635956-651030e461f8?q=80&w=2000&auto=format&fit=crop', 
+        'https://images.unsplash.com/photo-1514525253161-12c85e297800?q=80&w=2000&auto=format&fit=crop', 
+        'https://images.unsplash.com/photo-1493225255755-d41932accc47?q=80&w=2000&auto=format&fit=crop'
     ];
 
     const defaultImage = 'https://images.unsplash.com/photo-1549491689-18ae42571764?q=80&w=1000&auto=format&fit=crop'; 
