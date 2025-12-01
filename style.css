@@ -29,7 +29,6 @@ body {
 /* --- HERO IMAGE & SECTION FIXES --- */
 .image-target { 
     background-color: #0a0a0a; 
-    /* Hero images still use COVER to fill the screen nicely */
     background-size: cover !important; 
     background-position: center center !important; 
     background-repeat: no-repeat !important; 
@@ -189,13 +188,14 @@ body {
     height: 400px; 
     overflow: hidden; 
     border-radius: 4px;
-    background-color: #000; /* Dark background for letterboxing */
+    background-color: #000; 
 } 
+/* FIX: Enforce CENTER position so images aren't cut off at the top */
 .detail-img { 
     width: 100%; 
     height: 100%; 
-    object-fit: contain; /* SHOWS WHOLE PICTURE */
-    object-position: center; 
+    object-fit: contain; /* Ensures the whole image is visible (zoom out) */
+    object-position: center center; /* Ensures the image is centered in the box */
     filter: grayscale(100%); 
     transition: filter 0.5s; 
 } 
