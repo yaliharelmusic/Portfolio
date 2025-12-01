@@ -78,7 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 name: "LANEWAY", role: "VOLUNTEERS COORDINATOR", cat: "Australia Wide", year: "2025", 
                 summary: "2025 ARIA AWARDS WINNER FOR BEST MUSIC FESTIVAL, EXPENDS OVER SIX STATES",
                 details: "Coordinated a team of 200+ volunteers over 6 states, managing recruitment, scheduling, and training. Oversaw on site operations including accreditation, stage support, guest services, and safety compliance. Acted as the main point of contact between volunteers, production staff, and festival management to ensure seamless event delivery and well worth volunteers experince.", 
-                img: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2000&auto=format&fit=crop', instagram: "https://www.instagram.com/lanewayfest/", video_link: "https://lanewayfestival.com" 
+                
+                // --- UPDATE: LANEWAY FOLDER CONFIGURATION ---
+                folder: 'LANEWAY/',   // Folder name (must contain 01.jpeg, 02.jpeg, etc.)
+                count: 9,             // Total number of images
+                ext: '.jpeg',         // Specific file extension for this folder
+                
+                instagram: "https://www.instagram.com/lanewayfest/", video_link: "https://lanewayfestival.com" 
             },
             { 
                 name: "LISTEN OUT", role: "OPERATION MANAGER", cat: "AUSTRALIA Wide", year: "2023,24,25", 
@@ -259,7 +265,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let imageList = [];
             if (p.folder && p.count) {
                 for (let i = 1; i <= p.count; i++) {
-                    const fileName = String(i).padStart(2, '0') + ".jpg";
+                    // --- UPDATE: EXTENSION HANDLING ---
+                    // Checks if a specific extension is defined (like .jpeg), otherwise uses .jpg
+                    const extension = p.ext || ".jpg"; 
+                    const fileName = String(i).padStart(2, '0') + extension;
                     imageList.push(`${p.folder}${fileName}`);
                 }
             } else if (p.img) {
@@ -353,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const randomIndex = Math.floor(Math.random() * defaultBgImages.length);
         const fileUrl = defaultBgImages[randomIndex];
         imageSections.forEach(section => {
-            section.style.backgroundImage = `url(${fileUrl})`;
+            section.style.backgroundImage = `url('${fileUrl}')`;
             section.style.boxShadow = "inset 0 0 0 2000px rgba(0,0,0,0.3)";
         });
     }
