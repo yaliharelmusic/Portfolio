@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // --- UPDATE: LANEWAY FOLDER CONFIGURATION ---
                 folder: 'LANEWAY/',   // Folder name (must contain 01.jpeg, 02.jpeg, etc.)
                 count: 9,             // Total number of images
-                ext: '.jpeg',         // Specific file extension for this folder
+                ext: '.jpg',         // Specific file extension for this folder
                 
                 instagram: "https://www.instagram.com/lanewayfest/", video_link: "https://lanewayfestival.com" 
             },
