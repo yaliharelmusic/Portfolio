@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'MainPhotos/02.jpeg', 
         'MainPhotos/03.jpeg', 
         'MainPhotos/04.jpeg',
-        'MainPhotos/05.jpeg', // Fixed typo from duplicate 04
+        'MainPhotos/05.jpeg',
     ];
 
     const defaultImage = 'https://images.unsplash.com/photo-1549491689-18ae42571764?q=80&w=1000&auto=format&fit=crop'; 
@@ -346,37 +346,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     renderProjects('work'); 
 
-    // --- BACKGROUND IMAGE CYCLING (15s TIMER) ---
+    // --- BACKGROUND IMAGE CYCLING ---
     const imageSections = document.querySelectorAll('.image-target');
-    let currentImageIndex = 0;
-
-    function updateImages() {
+    function setRandomImage() {
         if (defaultBgImages.length === 0) return;
-        const fileUrl = defaultBgImages[currentImageIndex];
-        
+        const randomIndex = Math.floor(Math.random() * defaultBgImages.length);
+        const fileUrl = defaultBgImages[randomIndex];
         imageSections.forEach(section => {
-            section.style.backgroundImage = `url('${fileUrl}')`;
+            section.style.backgroundImage = `url(${fileUrl})`;
             section.style.boxShadow = "inset 0 0 0 2000px rgba(0,0,0,0.3)";
         });
-
-        // Loop index
-        currentImageIndex++;
-        if (currentImageIndex >= defaultBgImages.length) {
-            currentImageIndex = 0;
-        }
     }
-
-    // Set initial image
-    updateImages();
-
-    // Change every 15 seconds
-    setInterval(updateImages, 15000);
-
-    // Keep manual click capability
+    setRandomImage();
     imageSections.forEach(section => {
         section.addEventListener('click', (e) => {
             if(e.target === section || e.target.classList.contains('mouse-mover') || e.target.classList.contains('huge-bg-text')) {
-                updateImages();
+                setRandomImage();
             }
         });
     });
