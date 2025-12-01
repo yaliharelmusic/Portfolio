@@ -183,7 +183,6 @@ body {
 .snap-section { 
     scroll-snap-align: start; 
     scroll-snap-stop: always; 
-    /* IMPORTANT: Use min-height instead of strict height to allow expansion */
     min-height: 100dvh; 
     display: flex; 
     flex-direction: column; 
@@ -291,14 +290,28 @@ body {
     /* 2. DISABLE SCROLL SNAP ON MOBILE to prevent stuck content */
     html { scroll-snap-type: none; height: auto; overflow-y: scroll; }
 
-    /* 3. ALLOW SECTIONS TO GROW TALLER THAN SCREEN */
+    /* 3. ALLOW SECTIONS TO GROW TALLER THAN SCREEN AND FORCE PADDING */
     .snap-section {
-        height: auto !important; /* Force auto height so text pushes content down */
-        min-height: 100dvh;      /* At least full screen, but can be bigger */
-        display: block;          /* Stack content simply */
-        padding-top: 120px;      /* Ensure clearing navbar */
-        padding-bottom: 80px;    /* Space at bottom */
+        height: auto !important; 
+        min-height: 100dvh;      
+        display: block !important; 
+        /* Reset any conflicting padding here */
+        padding-top: 120px !important;
+        padding-bottom: 80px !important;
         padding-right: var(--padding);
+    }
+
+    /* 4. OVERRIDE Desktop Padding Rules for specific sections */
+    /* This fixes the "Can't see first section" issue by clearing the navbar */
+    .gear-section, .lineup-section, .text-section {
+        padding-top: 130px !important; 
+        padding-bottom: 100px !important;
+    }
+
+    /* 5. Force Work Section to expand */
+    .work-section { 
+        padding-top: 130px !important;
+        padding-bottom: 100px !important;
     }
 
     /* Keep Hero Section Full Screen Exact */
@@ -307,12 +320,9 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding-top: 0;
+        padding-top: 0 !important;
     }
 
-    /* Padding adjustments for inner content */
-    .work-section { padding: 120px var(--padding) 100px var(--padding) !important; }
-    
     /* Typography sizing fixes */
     .huge-bg-text { font-size: 22vw; } 
     .lineup-container { font-size: 8vw; }
