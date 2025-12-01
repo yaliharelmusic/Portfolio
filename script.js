@@ -59,19 +59,19 @@ document.addEventListener('DOMContentLoaded', () => {
         'crew & staff': 'PRE-EVENT PHASE', 'risk & safety': 'PRE-EVENT PHASE', 'leadership': 'PRE-EVENT PHASE'
     };
     
-    // --- MAIN PHOTOS GALLERY ---
-    // Ensure folder is 'MainPhotos'
+    // --- MAIN PHOTOS GALLERY (TOP IMAGES) ---
+    // UPDATED: Now uses .jpg to match your other folders
     const defaultBgImages = [
-        'MainPhotos/01.jpg', 
-        'MainPhotos/02.jpg', 
-        'MainPhotos/03.jpg', 
-        'MainPhotos/04.jpg',
-        'MainPhotos/05.jpg',
+        'MainPhotos/01.jpeg', 
+        'MainPhotos/02.jpeg', 
+        'MainPhotos/03.jpeg', 
+        'MainPhotos/04.jpeg',
+        'MainPhotos/05.jpeg',
     ];
 
     const defaultImage = 'https://images.unsplash.com/photo-1549491689-18ae42571764?q=80&w=1000&auto=format&fit=crop'; 
     
-    // --- PROJECT DATA (UPDATED FOR FOLDERS) ---
+    // --- PROJECT DATA ---
     const projectData = {
         'work': [
             { 
@@ -259,7 +259,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let imageList = [];
             if (p.folder && p.count) {
                 for (let i = 1; i <= p.count; i++) {
-                    // Default to .jpg, allow override if data has 'ext' property
                     const extension = p.ext || ".jpg"; 
                     const fileName = String(i).padStart(2, '0') + extension;
                     imageList.push(`${p.folder}${fileName}`);
@@ -269,7 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 imageList.push(defaultImage);
             }
-            const galleryData = JSON.stringify(imageList).replace(/"/g, '"');
+            // FIX: Using single quotes for data-gallery attribute to avoid conflicts with JSON double quotes
+            const galleryData = JSON.stringify(imageList);
             const uniqueId = `proj-${index}`;
             return `
             <div class="project-container">
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="detail-content">
                         <div class="img-wrapper" id="${uniqueId}">
                             ${imageList.length > 1 ? `<div class="image-counter">01 / ${String(imageList.length).padStart(2,'0')}</div>` : ''}
-                            <img src="${imageList[0]}" alt="${p.name}" class="detail-img" data-gallery="${galleryData}" data-current="0">
+                            <img src="${imageList[0]}" alt="${p.name}" class="detail-img" data-gallery='${galleryData}' data-current="0">
                             ${imageList.length > 1 ? `
                                 <div class="gallery-btn-container">
                                     <button class="next-img-btn hover-trigger">NEXT IMG →</button>
@@ -322,16 +322,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const galleryButtons = document.querySelectorAll('.next-img-btn');
         galleryButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                e.stopPropagation(); 
+                e.preventDefault(); // Prevent default button action
+                e.stopPropagation(); // Stop click from bubbling up
+                
                 const wrapper = btn.closest('.img-wrapper');
                 const imgTag = wrapper.querySelector('.detail-img');
                 const counter = wrapper.querySelector('.image-counter');
-                const images = JSON.parse(imgTag.getAttribute('data-gallery'));
+                
+                // Safety check
+                if (!imgTag) return;
+                
+                // Parse the gallery data (now safer due to single quote fix)
+                let images = [];
+                try {
+                    images = JSON.parse(imgTag.getAttribute('data-gallery'));
+                } catch(err) {
+                    console.error("Gallery data parse error", err);
+                    return;
+                }
+
                 let currentIdx = parseInt(imgTag.getAttribute('data-current'));
                 currentIdx++;
+                
+                // Loop back to start
                 if (currentIdx >= images.length) currentIdx = 0; 
+                
                 imgTag.src = images[currentIdx];
                 imgTag.setAttribute('data-current', currentIdx);
+                
                 if(counter) counter.innerText = `${String(currentIdx + 1).padStart(2,'0')} / ${String(images.length).padStart(2,'0')}`;
             });
         });
@@ -358,6 +376,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         imageSections.forEach(section => {
             section.style.backgroundImage = `url('${fileUrl}')`;
+            // Ensure background is always centered
+            section.style.backgroundPosition = "center center";
             section.style.boxShadow = "inset 0 0 0 2000px rgba(0,0,0,0.3)";
         });
 
