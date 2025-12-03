@@ -46,6 +46,13 @@ body {
     }
 }
 
+/* Add this to style.css */
+.accent-text {
+    color: var(--accent-color); /* Uses your existing red (#ff3e3e) */
+    opacity: 1;
+    font-weight: 600; /* Optional: Makes the red text slightly bolder */
+}
+
 .huge-bg-text { 
     font-size: 14vw; font-weight: 900; line-height: 0.9; text-align: center; color: var(--text-color); 
     opacity: 1; 
