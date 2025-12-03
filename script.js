@@ -128,9 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 details: "Managed relationships with sponsors, community groups, and festival partners. Developed partnership agreements, coordinated deliverables, and ensured sponsor activations aligned with festival objectives. Acted as the main point of contact for stakeholders, maintaining clear communication and supporting collaborative opportunities to enhance the festival experience", 
                 folder: "AUSTRALIA OPEN/", count: 5, instagram: "https://www.instagram.com/australianopen/?hl=en", video_link: "https://ausopen.com" }, 
             { 
-                name: "BEYOND THE VALLEY", role: "GATE MANAGER", cat: "Australia", year: "2022,23,24,25", 
+                name: "BEYOND THE VALLEY", role: "COORDINATOR", cat: "Australia", year: "2022,23,24,25", 
                 summary: "ARIA nominated music festival, multi-day music festival held annually at Barunah Plains over the New Year",
-                details: "Oversaw all gate staff, including ticket scanners, wristbanders, bag checkers, and supervisors. Coordinated entry workflows, queue management, and crowd movement. Liaised with security, operations, and ticketing teams to resolve issues quickly. Ensured ID checks, wristband distribution, and accreditation processes ran efficiently. Managed shift scheduling, staff briefing, and on-site problem-solving to maintain a positive patron experience", 
+                details: "Responsible for supporting the planning and delivery of one of Australia’s premier multi-day music and arts festivals. This role oversees logistics, artist and crew scheduling, vendor coordination, and on-site operations to ensure a seamless festival experience. Works closely with production, site, and programming teams to maintain timelines, troubleshoot issues, and uphold the festival’s creative vision, safety standards, and exceptional audience experience", 
                 folder: "BEYOND THE VALLEY/", count: 6, instagram: "https://www.instagram.com/beyondthevalleyfest/?hl=en", video_link: "https://www.beyondthevalley.com.au" 
             },
             { 
