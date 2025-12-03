@@ -87,6 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 folder: "LISTEN OUT/", count: 4, instagram: "https://www.instagram.com/listenout/", video_link: "https://listenout.com.au" 
             },
             { 
+                name: "BEYOND THE VALLEY", role: "COORDINATOR", cat: "Australia", year: "2022,23,24,25", 
+                summary: "ARIA nominated music festival, multi-day music festival held annually at Barunah Plains over the New Year",
+                details: "Responsible for supporting the planning and delivery of one of Australia’s premier multi-day music and arts festivals. This role oversees logistics, artist and crew scheduling, vendor coordination, and on-site operations to ensure a seamless festival experience. Works closely with production, site, and programming teams to maintain timelines, troubleshoot issues, and uphold the festival’s creative vision, safety standards, and exceptional audience experience", 
+                folder: "BEYOND THE VALLEY/", count: 6, instagram: "https://www.instagram.com/beyondthevalleyfest/?hl=en", video_link: "https://www.beyondthevalley.com.au" 
+            },
+            { 
                 name: "ST KILDA FESTIVAL", role: "HEAD OF PROGRAMMING", cat: "AUSTRALIA Wide", year: "2025", 
                 summary: "Australia's largest free celebration of summer, music, and community culture.",
                 details: "Led all festival programming, curating line ups across multiple stages and genres. Managed artist relations, bookings, and contracts, while coordinating schedules with production, operations, and marketing teams. Oversaw creative direction to ensure a cohesive festival experience, balancing audience engagement with budget and logistical constraints", 
@@ -127,12 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 summary: "One of the four Grand Slam tennis tournaments and a major global sporting event.",
                 details: "Managed relationships with sponsors, community groups, and festival partners. Developed partnership agreements, coordinated deliverables, and ensured sponsor activations aligned with festival objectives. Acted as the main point of contact for stakeholders, maintaining clear communication and supporting collaborative opportunities to enhance the festival experience", 
                 folder: "AUSTRALIA OPEN/", count: 5, instagram: "https://www.instagram.com/australianopen/?hl=en", video_link: "https://ausopen.com" }, 
-            { 
-                name: "BEYOND THE VALLEY", role: "COORDINATOR", cat: "Australia", year: "2022,23,24,25", 
-                summary: "ARIA nominated music festival, multi-day music festival held annually at Barunah Plains over the New Year",
-                details: "Responsible for supporting the planning and delivery of one of Australia’s premier multi-day music and arts festivals. This role oversees logistics, artist and crew scheduling, vendor coordination, and on-site operations to ensure a seamless festival experience. Works closely with production, site, and programming teams to maintain timelines, troubleshoot issues, and uphold the festival’s creative vision, safety standards, and exceptional audience experience", 
-                folder: "BEYOND THE VALLEY/", count: 6, instagram: "https://www.instagram.com/beyondthevalleyfest/?hl=en", video_link: "https://www.beyondthevalley.com.au" 
-            },
             { 
                 name: "PITCH MUSIC & ARTS", role: "GATE MANAGER", cat: "Australia", year: "2022,23,24,25", 
                 summary: "Multi-day event celebrating live music, art, and community culture",
